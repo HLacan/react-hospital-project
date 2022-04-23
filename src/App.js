@@ -1,16 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import DoctorList from 'pages/DoctorList';
+import HomePage from 'pages/HomePage';
+import PatientList from 'pages/PatientList';
+import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
+    <Router>
+      <div className="App">
+        <Link to="/doctors">Doctores</Link> |{" "}
+        <Link to="/patients">Pacientes</Link>
+      </div>
 
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-
-    </div>
+      <Routes>
+        <Route path='/' element={<HomePage/>}/>
+        <Route path='doctors' element={<DoctorList/>}/>
+        <Route path='patients' element={<PatientList/>}/>
+      </Routes>
+    </Router>
   );
 }
 
-export default App;
+
