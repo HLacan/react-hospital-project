@@ -1,6 +1,6 @@
 import { ChakraProvider, Container } from '@chakra-ui/react'
+import Header from 'components/Header'
 import DoctorList from 'pages/DoctorList'
-import Header from 'pages/Header'
 import HomePage from 'pages/HomePage'
 import PatientList from 'pages/PatientList'
 import { QueryClient, QueryClientProvider } from 'react-query'

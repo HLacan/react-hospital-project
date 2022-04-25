@@ -1,4 +1,5 @@
-const SERVER_URL = 'http://localhost:3001'
+import { api } from 'api'
 
-export const api = service =>
-  fetch(`${SERVER_URL}/doctors`).then(res => res.json())
+export const getDoctors = () => api('doctors')
+
+export const getDoctor = id => api(`tickets/${id}`)
