@@ -13,7 +13,7 @@ const DoctorProfilePage = () => {
     data: doctor,
   } = useQuery(['doctor', id], () => getDoctor(id), {
     initialData:
-      queryClient.getQueryData('tickets')?.find(ticket => ticket.id === id) ||
+      queryClient.getQueryData('doctors')?.find(doctor => doctor.id === id) ||
       {},
   })
 

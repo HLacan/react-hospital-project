@@ -3,8 +3,8 @@ const path = require('path')
 const mockData = require('./mockData')
 
 const { doctors } = mockData
-const data = JSON.stringify({doctors})
-const filepath = path.join(__dirname, 'db.json')
+const data = JSON.stringify({ doctors })
+const filepath = path.join(__dirname, 'DB.json')
 
 fs.writeFile(filepath, data, function (err) {
   err ? console.log(err) : console.log('Mock DB created!')

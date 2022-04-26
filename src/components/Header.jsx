@@ -11,6 +11,7 @@ import {
   MenuList,
   Text,
 } from '@chakra-ui/react'
+import DoctorFormModal from 'components/DoctorFormModal'
 import { Link as ReachLink } from 'react-router-dom'
 
 export default function Header() {
@@ -56,6 +57,7 @@ export default function Header() {
           </Flex>
         </Flex>
       </Box>
+      <DoctorFormModal />
     </>
   )
 }
