@@ -1,6 +1,7 @@
 import { ChakraProvider, Container } from '@chakra-ui/react'
 import Header from 'components/Header'
 import DoctorList from 'pages/DoctorList'
+import DoctorProfilePage from 'pages/DoctorProfilePage'
 import HomePage from 'pages/HomePage'
 import PatientList from 'pages/PatientList'
 import { QueryClient, QueryClientProvider } from 'react-query'
@@ -19,6 +20,7 @@ export default function App() {
             <Routes>
               <Route path='/' element={<HomePage />} />
               <Route path='doctors' element={<DoctorList />} />
+              <Route path='doctors/:id' element={<DoctorProfilePage />} />
               <Route path='patients' element={<PatientList />} />
             </Routes>
           </Container>

@@ -1,4 +1,5 @@
 import {
+  Center,
   Spinner,
   Table,
   TableContainer,
@@ -22,18 +23,21 @@ export default function DoctorList() {
 
   return (
     <div>
-      <Text fontSize='5xl'>
-        Doctor List{' '}
-        {isLoading || isFetching ? (
-          <Spinner
-            thickness='4px'
-            speed='0.65s'
-            emptyColor='gray.200'
-            color='blue.500'
-            size='md'
-          />
-        ) : null}
-      </Text>
+      <Center>
+        <Text fontSize='5xl' style={{ textAlign: Center }}>
+          Doctor List{' '}
+          {isLoading || isFetching ? (
+            <Spinner
+              thickness='4px'
+              speed='0.65s'
+              emptyColor='gray.200'
+              color='blue.500'
+              size='md'
+            />
+          ) : null}
+        </Text>
+      </Center>
+
       <TableContainer>
         <Table variant='simple'>
           <Thead>
@@ -43,6 +47,7 @@ export default function DoctorList() {
               <Th>Nombre</Th>
               <Th>Apellido</Th>
               <Th>Telefono</Th>
+              <Th>Opciones</Th>
             </Tr>
           </Thead>
           <Tbody>

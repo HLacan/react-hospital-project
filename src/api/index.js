@@ -1,6 +1,6 @@
 const SERVER_URL = 'http://localhost:3001'
 
-export const api = async service => {
+export const api = async (service, options) => {
   await new Promise(resolve => setTimeout(resolve, 3000))
-  return fetch(`${SERVER_URL}/${service}`).then(res => res.json())
+  return fetch(`${SERVER_URL}/${service}`, options).then(res => res.json())
 }
