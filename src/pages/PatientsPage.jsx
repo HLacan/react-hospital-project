@@ -1,4 +1,4 @@
-import { EditIcon } from '@chakra-ui/icons'
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import {
   Center,
   IconButton,
@@ -41,6 +41,7 @@ export default function PatientPage() {
 
   const handleEdit = patient => event => {
     event.stopPropagation()
+    console.log(patient)
     openPatientModal(patient)
   }
 
@@ -105,8 +106,8 @@ export default function PatientPage() {
                     onClick={handleEdit(patient)}
                   ></IconButton>
                   <IconButton
-                    colorScheme='yellow'
-                    icon={<EditIcon />}
+                    colorScheme='red'
+                    icon={<DeleteIcon />}
                     onClick={handleDelete(patient)}
                   ></IconButton>
                 </Td>
