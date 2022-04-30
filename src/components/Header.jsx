@@ -11,10 +11,13 @@ import {
   MenuList,
   Text,
 } from '@chakra-ui/react'
-import DoctorFormModal from 'components/DoctorFormModal'
+import PatientFormModal from 'components/PatientFormModal'
+import useModalContext from 'hooks/useModalContext'
 import { Link as ReachLink } from 'react-router-dom'
 
 export default function Header() {
+  const { openPatientModal } = useModalContext()
+
   const linkProps = {
     as: ReachLink,
     px: 2,
@@ -50,14 +53,16 @@ export default function Header() {
                 variant='outline'
               />
               <MenuList>
-                <MenuItem>Crear Ticket</MenuItem>
+                <MenuItem onClick={() => openPatientModal()}>
+                  Crear Paciente
+                </MenuItem>
                 <MenuItem>Crear Usuario</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
         </Flex>
       </Box>
-      <DoctorFormModal />
+      <PatientFormModal />
     </>
   )
 }
