@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 export default function useForm(defaultValues) {
   const [values, setValues] = useState(defaultValues)
@@ -13,7 +13,11 @@ export default function useForm(defaultValues) {
     onSubmit(values)
   }
 
-  return { values, handleChange, handleSubmit }
+  const updateValues = useCallback(newValues => {
+    setValues(newValues)
+  }, [])
+
+  return { values, handleChange, handleSubmit, updateValues }
 }
 
 // const [values, setValues] = useState({
