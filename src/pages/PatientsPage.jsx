@@ -1,6 +1,8 @@
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import {
   Center,
+  Divider,
+  HStack,
   IconButton,
   Spinner,
   Table,
@@ -55,8 +57,8 @@ export default function PatientPage() {
   return (
     <>
       <Center>
-        <Text fontSize='5xl' style={{ textAlign: Center }}>
-          Patient List{' '}
+        <Text fontSize='4xl' style={{ textAlign: Center }}>
+          Pacientes{' '}
           {isLoading || isFetching ? (
             <Spinner
               thickness='4px'
@@ -68,11 +70,17 @@ export default function PatientPage() {
           ) : null}
         </Text>
       </Center>
-
+      <br />
+      <Divider orientation='horizontal' />
+      <br />
       <TableContainer>
         <Table variant='simple'>
           <Thead>
-            <Tr>
+            <Tr
+              style={{
+                backgroundColor: 'lightgray',
+              }}
+            >
               <Th>Id</Th>
               <Th>Nombre</Th>
               <Th>Apellido</Th>
@@ -100,16 +108,18 @@ export default function PatientPage() {
                 <Td>{patient.birthday}</Td>
                 <Td>{patient.phoneNumber}</Td>
                 <Td>
-                  <IconButton
-                    colorScheme='yellow'
-                    icon={<EditIcon />}
-                    onClick={handleEdit(patient)}
-                  ></IconButton>
-                  <IconButton
-                    colorScheme='red'
-                    icon={<DeleteIcon />}
-                    onClick={handleDelete(patient)}
-                  ></IconButton>
+                  <HStack spacing='24px'>
+                    <IconButton
+                      colorScheme='yellow'
+                      icon={<EditIcon />}
+                      onClick={handleEdit(patient)}
+                    ></IconButton>
+                    <IconButton
+                      colorScheme='red'
+                      icon={<DeleteIcon />}
+                      onClick={handleDelete(patient)}
+                    ></IconButton>
+                  </HStack>
                 </Td>
               </Tr>
             ))}
