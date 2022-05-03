@@ -31,7 +31,7 @@ export default function Header() {
 
   return (
     <>
-      <Box px={4}>
+      <Box px={4} style={{ backgroundColor: 'lightcyan' }}>
         <Flex h={16} alignItems='center' justifyContent='space-between'>
           <HStack as='nav' spacing={4} display={{ base: 'none', md: 'flex' }}>
             <Link to='/' {...linkProps}>

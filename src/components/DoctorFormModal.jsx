@@ -14,13 +14,13 @@ import Input from 'components/Input'
 import { ModalContext } from 'context/ModalContext'
 import useForm from 'hooks/useForm'
 import queryClient from 'queryClient'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useMutation } from 'react-query'
 
 export default function DoctorFormModal() {
-  const { openModal, setOpenModal } = useContext(ModalContext)
+  const { openModal, setOpenModal, editingValue } = useContext(ModalContext)
 
-  const { values, handleChange, handleSubmit } = useForm({
+  const { values, handleChange, handleSubmit, updateValues } = useForm({
     dpi: '',
     name: '',
     lastName: '',
@@ -38,6 +38,12 @@ export default function DoctorFormModal() {
   const onClose = () => {
     setOpenModal()
   }
+
+  useEffect(() => {
+    if (editingValue) {
+      updateValues(editingValue)
+    }
+  }, [editingValue, updateValues])
 
   return (
     <Modal isOpen={openModal === 'doctors'} onClose={onClose}>
@@ -61,6 +67,7 @@ export default function DoctorFormModal() {
               onChange={handleChange}
               value={values.name}
             />
+
             <Input
               name='lastName'
               label='Apellido'
