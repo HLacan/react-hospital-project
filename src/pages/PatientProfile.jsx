@@ -6,14 +6,15 @@ import {
   AccordionPanel,
   Box,
   Center,
-  Container,
   Divider,
   Text,
   Wrap,
-  WrapItem,
 } from '@chakra-ui/react'
-import { getPatientHistories } from 'api/historyApi'
+import { getPatientAdmissions } from 'api/admissionApi'
 import { getPatient } from 'api/patientApi'
+import { getPatientVisits } from 'api/visitApi'
+import CText from 'components/CText'
+import WrapItem from 'components/WrapItem'
 import useModalContext from 'hooks/useModalContext'
 import queryClient from 'queryClient'
 import { useQuery } from 'react-query'
@@ -31,11 +32,15 @@ const PatientProfilePage = () => {
         ?.find(patient => patient.id === id) || {},
   })
 
-  const { data: histories } = useQuery(
-    ['history', id],
-    () => getPatientHistories(id),
+  const { data: visits } = useQuery(['visit', id], () => getPatientVisits(id), {
+    initialData: queryClient.getQueryData('visits'),
+  })
+
+  const { data: admissions } = useQuery(
+    ['admission', id],
+    () => getPatientAdmissions(id),
     {
-      initialData: queryClient.getQueryData('histories'),
+      initialData: queryClient.getQueryData('admissions'),
     }
   )
 
@@ -46,39 +51,85 @@ const PatientProfilePage = () => {
   return (
     <>
       <Center>
-        <Text fontSize='5xl'>Datos del Paciente</Text>
+        <Text fontSize='3xl' margin={4}>
+          Datos del Paciente
+        </Text>
       </Center>
 
-      <Divider orientation='horizontal' />
+      <Wrap spacing='30px' justify='center' margin={5}>
+        <WrapItem title='Nombre'>{patient.name}</WrapItem>
+        <WrapItem title='Apellido'>{patient.lastName}</WrapItem>
+        <WrapItem title='DPI'>{patient.dpi}</WrapItem>
+        <WrapItem title='Fecha'>{patient.birthday}</WrapItem>
+        <WrapItem title='Telefono'>{patient.phoneNumber}</WrapItem>
+      </Wrap>
 
-      <Container maxW='8xl'>
-        <Wrap spacing='50px' justify='center'>
-          <WrapItem>
-            <Box w='500px' h='full' p='4' bg='gray.200' borderRadius='xl'>
-              <Text fontSize='3xl'>Nombre</Text>
-              <Divider borderColor='black' padding={1} />
-              <Text fontSize='2xl'>{patient.name}</Text>
-            </Box>
-          </WrapItem>
-        </Wrap>
-      </Container>
+      <Divider margin={10} orientation='horizontal' borderColor='gray' />
 
-      <Accordion defaultIndex={[0]} allowMultiple>
-        {histories?.map(history => (
-          <AccordionItem key={history.id}>
-            <h2>
-              <AccordionButton>
-                <Box flex='1' textAlign='left'>
-                  <Text fontSize='xl'>
-                    Entrada: {history.arrivalDate} ----- Salida:{' '}
-                    {history.departureDate}
-                  </Text>
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>Nada xD</AccordionPanel>
-          </AccordionItem>
+      <Center>
+        <Text fontSize='3xl'>Visitas</Text>
+      </Center>
+
+      <Accordion allowMultiple>
+        {visits?.map(visit => (
+          <Box key={visit.id}>
+            <AccordionItem>
+              <h2>
+                <AccordionButton
+                  backgroundColor='#DDDDDD'
+                  _hover={{
+                    background: '#969696',
+                  }}
+                >
+                  <Box flex='1' textAlign='left'>
+                    <Text fontSize='xl'>Entrada: {visit.visitDate}</Text>
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <CText title='Motivo'>{visit.reason}</CText>
+                <CText title='Diagnostico'>{visit.diagnostic}</CText>
+                <CText title='Tratamiento'>{visit.treatment}</CText>
+                <CText title='Doctor'>{visit.doctorId}</CText>
+              </AccordionPanel>
+            </AccordionItem>
+          </Box>
+        ))}
+      </Accordion>
+
+      <Divider margin={10} orientation='horizontal' borderColor='gray' />
+
+      <Center>
+        <Text fontSize='3xl'>Ingresos</Text>
+      </Center>
+
+      <Accordion allowMultiple>
+        {admissions?.map(admission => (
+          <Box key={admission.id}>
+            <AccordionItem>
+              <h2>
+                <AccordionButton
+                  backgroundColor='#DDDDDD'
+                  _hover={{
+                    background: '#969696',
+                  }}
+                >
+                  <Box flex='1' textAlign='left'>
+                    <Text fontSize='xl'>
+                      Entrada: {admission.admissionDate}
+                    </Text>
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <CText title='Motivo'>{admission.reason}</CText>
+                <CText title='Cama'>{admission.bedId}</CText>
+                <CText title='Doctor'>{admission.doctorId}</CText>
+              </AccordionPanel>
+            </AccordionItem>
+          </Box>
         ))}
       </Accordion>
     </>
