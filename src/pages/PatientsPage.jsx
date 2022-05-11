@@ -57,7 +57,7 @@ export default function PatientPage() {
   return (
     <>
       <Center>
-        <Text fontSize='4xl' style={{ textAlign: Center }}>
+        <Text fontSize='4xl' marginTop={10} style={{ textAlign: Center }}>
           Pacientes{' '}
           {isLoading || isFetching ? (
             <Spinner
@@ -71,16 +71,12 @@ export default function PatientPage() {
         </Text>
       </Center>
       <br />
-      <Divider orientation='horizontal' />
+      <Divider orientation='horizontal' borderColor='gray' />
       <br />
-      <TableContainer>
-        <Table variant='simple'>
+      <TableContainer margin={3}>
+        <Table variant='simple' size='sm' colorScheme='facebook'>
           <Thead>
-            <Tr
-              style={{
-                backgroundColor: 'lightgray',
-              }}
-            >
+            <Tr backgroundColor='#D6D5C3' h='50'>
               <Th>Id</Th>
               <Th>Nombre</Th>
               <Th>Apellido</Th>
