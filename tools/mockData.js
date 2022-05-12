@@ -21,113 +21,110 @@ const patients = [
     name: 'Juan',
     lastName: 'Cataluño',
     dpi: '0101',
-    birthday: '01/01/2001',
+    birthday: '2001-01-27',
     phoneNumber: '11111111',
+    status: 'discharged',
   },
   {
     id: 2,
     name: 'Margarita',
     lastName: 'Saenz',
     dpi: '0102',
-    birthday: '02/02/2002',
+    birthday: '2020-02-19',
     phoneNumber: '22222222',
+    status: 'admitted',
   },
 ]
 
-const floors = [
+const areas = [
   {
     id: 1,
     name: 'surgery',
-    beds: '10',
   },
   {
     id: 2,
     name: 'operating room',
-    beds: '5',
   },
 ]
 
 const beds = [
   {
     id: 1,
-    floorId: 1,
+    status: 'libre',
+    areaId: 1,
   },
   {
     id: 2,
-    floorId: 1,
+    status: 'libre',
+    areaId: 1,
   },
   {
     id: 3,
-    floorId: 1,
+    status: 'libre',
+    areaId: 1,
   },
   {
     id: 4,
-    floorId: 2,
+    status: 'libre',
+    areaId: 2,
   },
   {
     id: 5,
-    floorId: 2,
+    status: 'libre',
+    areaId: 2,
   },
   {
     id: 6,
-    floorId: 2,
-  },
-]
-
-const histories = [
-  {
-    id: 1,
-    arrivalDate: '03/04/2022',
-    departureDate: '03/05/2022',
-    patientId: 1,
-  },
-  {
-    id: 2,
-    arrivalDate: '01/02/2021',
-    departureDate: '01/03/2021',
-    patientId: 1,
-  },
-  {
-    id: 3,
-    arrivalDate: '01/01/2020',
-    departureDate: '01/02/2020',
-    patientId: 2,
-  },
-  {
-    id: 4,
-    arrivalDate: '05/03/2019',
-    departureDate: '05/04/2019',
-    patientId: 2,
-  },
-]
-
-const patientBeds = [
-  {
-    id: 1,
-    arrivalDate: '03/04/2022',
-    bedId: 1,
-    historyId: 1,
-  },
-  {
-    id: 2,
-    arrivalDate: '01/01/2020',
-    bedId: 3,
-    historyId: 3,
+    status: 'libre',
+    areaId: 2,
   },
 ]
 
 const visits = [
   {
     id: 1,
-    diagnostic: 'flu',
+    visitDate: '2001-01-27',
+    reason: 'dolor de garganta',
+    diagnostic: 'gripe',
+    treatment: 'pastillas',
     doctorId: 1,
-    patientBedId: 1,
+    patientId: 1,
   },
   {
     id: 2,
-    diagnostic: 'broken bone',
+    visitDate: '2015-05-31',
+    reason: 'dolor de estomago',
+    diagnostic: 'gastritis',
+    treatment: 'antiacido',
     doctorId: 2,
-    patientBedId: 3,
+    patientId: 2,
+  },
+]
+
+const admissions = [
+  {
+    id: 1,
+    admissionDate: '2017-12-26',
+    reason: 'parto',
+    bedId: 1,
+    patientId: 2,
+    doctorId: 1,
+  },
+  {
+    id: 2,
+    admissionDate: '2014-07-10',
+    reason: 'apendicitis',
+    bedId: 2,
+    patientId: 1,
+    doctorId: 2,
+  },
+  {
+    id: 3,
+    admissionDate: '2014-08-15',
+    reason: 'gastritis cronica',
+    bedId: 1,
+    patientId: 1,
+    doctorId: 1,
   },
 ]
 
@@ -135,8 +132,7 @@ module.exports = {
   doctors,
   patients,
   visits,
-  histories,
-  patientBeds,
+  admissions,
   beds,
-  floors,
+  areas,
 }
