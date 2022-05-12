@@ -11,43 +11,43 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
-import { deleteArea, getAreas } from 'api/areaApi'
+import { deleteDoctor, getDoctors } from 'api/doctorApi'
 import ActionButtons from 'components/ActionButtons'
 import useModalContext from 'hooks/useModalContext'
 import queryClient from 'queryClient'
 import { useMutation, useQuery } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 
-export default function AreasPage() {
-  const { openAreaModal } = useModalContext()
+export default function DoctorsPage() {
+  const { openDoctorModal } = useModalContext()
   const navigate = useNavigate()
 
   const {
     isLoading,
     isFetching,
     error,
-    data: areas,
-  } = useQuery('areas', getAreas)
+    data: doctors,
+  } = useQuery('doctors', getDoctors)
 
-  const handleClick = area => () => {
-    navigate(`./${area.id}`)
+  const handleClick = doctor => () => {
+    navigate(`./${doctor.id}`)
   }
 
-  const { mutate } = useMutation(deleteArea, {
+  const { mutate } = useMutation(deleteDoctor, {
     onSuccess: () => {
-      queryClient.invalidateQueries('areas')
+      queryClient.invalidateQueries('doctors')
     },
   })
 
-  const handleEdit = area => event => {
+  const handleEdit = doctor => event => {
     event.stopPropagation()
-    openAreaModal(area)
+    openDoctorModal(doctor)
   }
 
-  const handleDelete = area => event => {
+  const handleDelete = doctor => event => {
     event.stopPropagation()
-    if (window.confirm('Borrar esta Area??')) {
-      mutate(area.id)
+    if (window.confirm('Borrar este Registro??')) {
+      mutate(doctor.id)
     }
   }
 
@@ -55,7 +55,7 @@ export default function AreasPage() {
     <>
       <Center>
         <Text fontSize='4xl' marginTop={10}>
-          Areas{' '}
+          Doctores{' '}
           {isLoading || isFetching ? (
             <Spinner
               thickness='4px'
@@ -75,27 +75,33 @@ export default function AreasPage() {
           <Thead>
             <Tr backgroundColor='#D6D5C3' h='50'>
               <Th>Id</Th>
+              <Th>DPI</Th>
               <Th>Nombre</Th>
-              <Th>Opciones</Th>
+              <Th>Apellido</Th>
+              <Th>phoneNumber</Th>
+              <Th>Acciones</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {areas?.map(area => (
+            {doctors?.map(doctor => (
               <Tr
-                key={area.id}
-                onClick={handleClick(area)}
+                key={doctor.id}
+                onClick={handleClick(doctor)}
                 _hover={{
                   texDecoration: 'none',
                   bg: 'gray.200',
                   cursor: 'pointer',
                 }}
               >
-                <Td>{area.id}</Td>
-                <Td>{area.name}</Td>
+                <Td>{doctor.id}</Td>
+                <Td>{doctor.dpi}</Td>
+                <Td>{doctor.name}</Td>
+                <Td>{doctor.lastName}</Td>
+                <Td>{doctor.phoneNumber}</Td>
                 <Td>
                   <ActionButtons
-                    edit={handleEdit(area)}
-                    del={handleDelete(area)}
+                    edit={handleEdit(doctor)}
+                    del={handleDelete(doctor)}
                   />
                 </Td>
               </Tr>

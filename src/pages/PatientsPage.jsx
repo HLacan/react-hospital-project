@@ -1,9 +1,6 @@
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import {
   Center,
   Divider,
-  HStack,
-  IconButton,
   Spinner,
   Table,
   TableContainer,
@@ -15,6 +12,7 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import { deletePatient, getPatients } from 'api/patientApi'
+import ActionButtons from 'components/ActionButtons'
 import useModalContext from 'hooks/useModalContext'
 import queryClient from 'queryClient'
 import { useMutation, useQuery } from 'react-query'
@@ -43,7 +41,6 @@ export default function PatientPage() {
 
   const handleEdit = patient => event => {
     event.stopPropagation()
-    console.log(patient)
     openPatientModal(patient)
   }
 
@@ -57,7 +54,7 @@ export default function PatientPage() {
   return (
     <>
       <Center>
-        <Text fontSize='4xl' marginTop={10} style={{ textAlign: Center }}>
+        <Text fontSize='4xl' marginTop={10}>
           Pacientes{' '}
           {isLoading || isFetching ? (
             <Spinner
@@ -104,18 +101,10 @@ export default function PatientPage() {
                 <Td>{patient.birthday}</Td>
                 <Td>{patient.phoneNumber}</Td>
                 <Td>
-                  <HStack spacing='24px'>
-                    <IconButton
-                      colorScheme='yellow'
-                      icon={<EditIcon />}
-                      onClick={handleEdit(patient)}
-                    ></IconButton>
-                    <IconButton
-                      colorScheme='red'
-                      icon={<DeleteIcon />}
-                      onClick={handleDelete(patient)}
-                    ></IconButton>
-                  </HStack>
+                  <ActionButtons
+                    edit={handleEdit(patient)}
+                    del={handleDelete(patient)}
+                  />
                 </Td>
               </Tr>
             ))}
