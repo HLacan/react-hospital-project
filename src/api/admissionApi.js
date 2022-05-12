@@ -3,7 +3,7 @@ import { api } from 'api'
 export const getPatientAdmissions = id => api(`patients/${id}/admissions`)
 
 export const saveAdmission = admission =>
-  api(`admission${admission.id ? `/${admission.id}` : ''}`, {
+  api(`admissions${admission.id ? `/${admission.id}` : ''}`, {
     method: admission.id ? 'PUT' : 'POST',
     headers: {
       'Content-Type': 'application/json',
