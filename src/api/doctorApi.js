@@ -12,3 +12,8 @@ export const saveDoctor = doctor =>
     },
     body: JSON.stringify(doctor),
   })
+
+export const deleteDoctor = async id =>
+  api(`doctors/${id}`, {
+    method: 'DELETE',
+  })
