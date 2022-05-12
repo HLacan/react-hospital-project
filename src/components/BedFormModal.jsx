@@ -7,7 +7,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Spinner,
   VisuallyHidden,
 } from '@chakra-ui/react'
 import { saveBed } from 'api/bedApi'
@@ -38,7 +37,7 @@ export default function BedFormModal() {
     },
   ]
 
-  const { mutate, isLoading } = useMutation(saveBed, {
+  const { mutate } = useMutation(saveBed, {
     onSuccess: data => {
       queryClient.invalidateQueries('beds')
       queryClient.invalidateQueries(['beds', String(data.id)])
@@ -58,7 +57,7 @@ export default function BedFormModal() {
 
       <ModalContent>
         <form onSubmit={handleSubmit(mutate)}>
-          <ModalHeader>Crear Cama {isLoading && <Spinner />}</ModalHeader>
+          <ModalHeader>Crear Cama</ModalHeader>
 
           <ModalCloseButton />
 
@@ -83,7 +82,7 @@ export default function BedFormModal() {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' disabled={isLoading} type='submit'>
+            <Button colorScheme='blue' type='submit'>
               Guardar
             </Button>
           </ModalFooter>

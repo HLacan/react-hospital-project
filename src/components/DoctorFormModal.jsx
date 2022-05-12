@@ -11,14 +11,14 @@ import {
 } from '@chakra-ui/react'
 import { saveDoctor } from 'api/doctorApi'
 import Input from 'components/Input'
-import { ModalContext } from 'context/ModalContext'
 import useForm from 'hooks/useForm'
+import useModalContext from 'hooks/useModalContext'
 import queryClient from 'queryClient'
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useMutation } from 'react-query'
 
 export default function DoctorFormModal() {
-  const { openModal, setOpenModal, editingValue } = useContext(ModalContext)
+  const { isDoctorModalOpen, editingValue, closeModal } = useModalContext()
 
   const { values, handleChange, handleSubmit, updateValues } = useForm({
     dpi: '',
@@ -28,16 +28,12 @@ export default function DoctorFormModal() {
   })
 
   const { mutate, isLoading } = useMutation(saveDoctor, {
-    onSuccess: () => {
+    onSuccess: data => {
       queryClient.invalidateQueries('doctors')
-      console.log('yuju')
-      setOpenModal()
+      queryClient.invalidateQueries(['areas', String(data.id)])
+      closeModal()
     },
   })
-
-  const onClose = () => {
-    setOpenModal()
-  }
 
   useEffect(() => {
     if (editingValue) {
@@ -46,17 +42,20 @@ export default function DoctorFormModal() {
   }, [editingValue, updateValues])
 
   return (
-    <Modal isOpen={openModal === 'doctors'} onClose={onClose}>
+    <Modal isOpen={isDoctorModalOpen} onClose={closeModal}>
       <ModalOverlay />
+
       <ModalContent>
         <form onSubmit={handleSubmit(mutate)}>
-          <ModalHeader>Agregar Doctor {isLoading && <Spinner />}</ModalHeader>
+          <ModalHeader>Doctores {isLoading && <Spinner />}</ModalHeader>
+
           <ModalCloseButton />
+
           <ModalBody>
             <Input
+              autoFocus
               name='dpi'
               label='DPI'
-              autoFocus
               onChange={handleChange}
               value={values.dpi}
             />
@@ -74,15 +73,17 @@ export default function DoctorFormModal() {
               onChange={handleChange}
               value={values.lastName}
             />
+
             <Input
               name='phoneNumber'
-              label='Teléfono'
+              label='Telefono'
               onChange={handleChange}
               value={values.phoneNumber}
             />
           </ModalBody>
+
           <ModalFooter>
-            <Button colorScheme='blue' type='submit' disabled={isLoading}>
+            <Button colorScheme='blue' disabled={isLoading} type='submit'>
               Guardar
             </Button>
           </ModalFooter>

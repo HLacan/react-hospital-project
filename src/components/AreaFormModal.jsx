@@ -35,7 +35,6 @@ export default function AreaFormModal() {
   useEffect(() => {
     if (editingValue) {
       updateValues(editingValue)
-    } else {
     }
   }, [editingValue, updateValues])
 
