@@ -3,8 +3,8 @@ import Header from 'components/Header'
 import { ModalProvider } from 'context/ModalContext'
 import AreaProfilePage from 'pages/AreaProfilePage'
 import AreasPage from 'pages/AreasPage'
-import DoctorList from 'pages/DoctorList'
-import DoctorProfilePage from 'pages/DoctorProfilePage'
+import DoctorProfile from 'pages/DoctorProfile'
+import DoctorsPage from 'pages/DoctorsPage'
 import HomePage from 'pages/HomePage'
 import PatientProfilePage from 'pages/PatientProfile'
 import PatientPage from 'pages/PatientsPage'
@@ -23,8 +23,8 @@ const App = () => {
             <Container maxW='container.xl'>
               <Routes>
                 <Route path='/' element={<HomePage />} />
-                <Route path='doctors' element={<DoctorList />} />
-                <Route path='doctors/:id' element={<DoctorProfilePage />} />
+                <Route path='doctors' element={<DoctorsPage />} />
+                <Route path='doctors/:id' element={<DoctorProfile />} />
                 <Route path='patients' element={<PatientPage />} />
                 <Route path='patients/:id' element={<PatientProfilePage />} />
                 <Route path='areas' element={<AreasPage />} />
